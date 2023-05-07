@@ -127,34 +127,26 @@ a{
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1>ENJOY THE MUSIC </h1>
-    <h1>LIST OF SONGS WE RECOMMEND FOR</h1>
-    <table border="1">
-      <thead>
-        <tr>
-            <th>Song Name</th>
-            <th>Artist Name</th>
-            <th>Genres</th>
-            <th>Language</th>
-            <th colspan="2">Links</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for i in dicter %}
-        <tr>
-            <td>{{ i.track_name }}</td>
-            <td>{{ i.artist_name }}</td>
-            <td>{{ i.genres }}</td>
-            <td>{{ i.language }}</td>
-            <td><a href="{{ i.track_url }}" style="font-size: 16px;">Song_Link</a></td>
-            <td><a href="{{ i.artist_url }}" style="font-size: 16px;">Artist_Link</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    </table>
+    <h2>3.Your favourite singer</h2>
+    <form method="post" action="/question3">
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Arjith Singh">
+      <label for="vehicle1"> Arjith Singh</label><br>
+      <input type="checkbox" id="vehicle2" name="vehicle1" value="Shreya Goshal">
+      <label for="vehicle2"> Shreya Goshal</label><br>
+      <input type="checkbox" id="vehicle3" name="vehicle1" value="S P Bala Subramanyam">
+      <label for="vehicle3"> S P Bala Subramanyam</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Thaman s">
+      <label for="vehicle1"> Thaman s</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Arman Malik">
+      <label for="vehicle1"> Arman Malik</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Sid Sriram">
+      <label for="vehicle1"> Sid Sriram</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Usha Uthup">
+      <label for="vehicle1"> Usha Uthup</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Shreya Ghoshal">
+      <label for="vehicle1"> Shreya Ghoshal</label><br><br><br>
+      <input type="submit" value="NEXT">
+      <!-- <a class="button-59" type="submit">Next</a> -->
+    </form>
 </body>
 </html>

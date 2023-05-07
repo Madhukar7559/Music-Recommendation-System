@@ -127,34 +127,24 @@ a{
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1>ENJOY THE MUSIC </h1>
-    <h1>LIST OF SONGS WE RECOMMEND FOR</h1>
-    <table border="1">
-      <thead>
-        <tr>
-            <th>Song Name</th>
-            <th>Artist Name</th>
-            <th>Genres</th>
-            <th>Language</th>
-            <th colspan="2">Links</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for i in dicter %}
-        <tr>
-            <td>{{ i.track_name }}</td>
-            <td>{{ i.artist_name }}</td>
-            <td>{{ i.genres }}</td>
-            <td>{{ i.language }}</td>
-            <td><a href="{{ i.track_url }}" style="font-size: 16px;">Song_Link</a></td>
-            <td><a href="{{ i.artist_url }}" style="font-size: 16px;">Artist_Link</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    </table>
+    <h2>2. Your favourite Music</h2>
+    <form method="post" action="/question2">
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="POP">
+      <label for="vehicle1"> POP</label><br>
+      <input type="checkbox" id="vehicle2" name="vehicle1" value="Bass">
+      <label for="vehicle2"> Bass</label><br>
+      <input type="checkbox" id="vehicle3" name="vehicle3" value="Jazz">
+      <label for="vehicle3"> Jazz</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Hip hop">
+      <label for="vehicle1"> Hip hop</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Flok music">
+      <label for="vehicle1"> Flok music</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Classical music">
+      <label for="vehicle1"> Classical music</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Rock and Roll">
+      <label for="vehicle1"> Rock and Roll</label><br><br><br>
+      <input type="submit" value="NEXT">
+      <!-- <a class="button-59" type="submit">Next</a> -->
+    </form>
 </body>
 </html>

@@ -1,6 +1,7 @@
 import os
 from flask import Flask, render_template, request, redirect
 import lyricsgenius;
+from gevent.pywsgi import WSGIServer
 import spotipy;
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth;
 import pandas as pd;
@@ -13,9 +14,11 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.feature_extraction.text import TfidfVectorizer
 from textblob import TextBlob
 import re
-
+import time;
+from waitress import serve
 # Importing File Content_Filtering.py
 import Content_Filtering as cf;
+df = pd.read_csv("/workspaces/SE_Project/ActBigdata.csv");
 
 def extractor(linkers):
     playlist_data = [];
@@ -84,9 +87,38 @@ def extractor(linkers):
     # playlist_df.to_csv("testplist.csv");
     return playlist_df;
 
+def nsu(ans):
+    global df;
+    cond_str_lang = "df['language'] == "
+    cond_str_genre = "df['genres'] == "
+    cond_str_artist = "df['artist_name'] == "
+    total_cond = [];
+    for i in ans[0]:
+        x = cond_str_lang;
+        i = "'" + i + "'";
+        x += i
+        print(x)
+        total_cond.append(x)
+    for i in ans[1]:
+        x = cond_str_genre;
+        i = "'" + i + "'";
+        x += i
+        print(x)
+        total_cond.append(x)
+    for i in ans[2]:
+        x = cond_str_artist;
+        i = "'" + i + "'";
+        x += i
+        print(x)
+        total_cond.append(x);
+    apper = 0
+    for i in total_cond:
+        apper |= (eval(i));
+    return df[apper].sort_values("track_pop", ascending=False);
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 template_dir = os.path.abspath(script_dir)
-app = Flask(__name__, template_folder=template_dir)
+app = Flask(__name__, template_folder=template_dir, static_folder='static')
 @app.route('/')
 def index():
     return render_template('search.html');
@@ -95,12 +127,54 @@ def handle_form_submission():
     text = request.form['my_textbox'];
     global labeler;
     text = extractor(text);
-    # text.to_csv("Hello_Test.csv")
     text = cf.content_filtering(text);
-    text = text.to_html()
-    return render_template('tq.html', df_html=text);
-if __name__ == '__main__':
-    app.run(debug=True)
+    text = text.to_dict(orient='records');
+    return render_template('tq.html', dicter=text);
 
+answers = []
+@app.route('/set')
+def home():
+    return redirect('/question1')
+
+@app.route('/question1', methods=['GET', 'POST'])
+def question1():
+    print("One Done {}".format(df["language"].unique()));
+    if request.method == 'POST':
+        answer = request.form.getlist('vehicle1')
+        answers.append(answer)
+        return redirect('/question2')
+    return render_template('q1.html', langer = df["language"].unique())
+
+@app.route('/question2', methods=['GET', 'POST'])
+def question2():
+    print("Two Done {}".format(df["genres"].unique()));
+    if request.method == 'POST':
+        answer = request.form.getlist('vehicle1')
+        answers.append(answer)
+        return redirect('/question3')
+    return render_template('q2.html')
+
+@app.route('/question3', methods=['GET', 'POST'])
+def question3():
+    print("Three Done {}".format(df["artist_name"].unique()));
+    if request.method == 'POST':
+        answer = request.form.getlist('vehicle1')
+        answers.append(answer)
+        return redirect('/result')
+    return render_template('q3.html')
+
+@app.route('/result')
+def result():
+    print(answers);
+    data_frame = nsu(answers);
+    data_frame = data_frame.to_dict(orient='records');
+    time.sleep(1);
+    return render_template('tq.html', dicter=data_frame);
+    
+if __name__ == '__main__': 
+    app.run(debug=True)
+    # server = WSGIServer(("localhost", 121), app);
+    # server.serve_forever();
+# serve(app, host="0.0.0.0", port=8080)
 # labeler = pd.read_csv("D:/Project/python_trail/testplist.csv");
 # print(type(cf(labeler)))

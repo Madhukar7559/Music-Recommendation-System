@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
 	<title>Centered Search Bar</title>
 	<style>
         body{
@@ -114,13 +115,28 @@ a{
     margin-left: 30%;
 }
 	</style>
+
+  <!-- <script>
+    var soc = io.connect('http://localhost:5000');
+    soc.on("server_event")
+  </script> -->
+
+  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 </head>
 <body>
 	<div class="container">
 		<form method="post" action="/process">
-			<input type="text" class="search-bar" placeholder="Paste your URL here" name="my_textbox">
-      <input type="submit" value="Next" class="button-59">
+			<input type="text" class="search-bar" placeholder="Paste your URL here" name="my_textbox" id="textinfo">
+            <a><input type="button" value="Next" class="button-59" onclick="addSetToUrl()"></a>
 		</form>
+        <script>
+		function addSetToUrl() {
+			var currentUrl = window.location.href;
+			var newUrl = currentUrl + "/set";
+			document.querySelector('a').href = newUrl;
+		}
+	    </script>
 	</div>
 </body>
 </html>

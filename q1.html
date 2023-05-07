@@ -110,7 +110,8 @@ input{
     min-width: 170px;
   }
 }
-h2{
+
+    h2{
     margin-bottom: 15px;
 }
 
@@ -123,38 +124,29 @@ a{
 <body>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1>ENJOY THE MUSIC </h1>
-    <h1>LIST OF SONGS WE RECOMMEND FOR</h1>
-    <table border="1">
-      <thead>
-        <tr>
-            <th>Song Name</th>
-            <th>Artist Name</th>
-            <th>Genres</th>
-            <th>Language</th>
-            <th colspan="2">Links</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for i in dicter %}
-        <tr>
-            <td>{{ i.track_name }}</td>
-            <td>{{ i.artist_name }}</td>
-            <td>{{ i.genres }}</td>
-            <td>{{ i.language }}</td>
-            <td><a href="{{ i.track_url }}" style="font-size: 16px;">Song_Link</a></td>
-            <td><a href="{{ i.artist_url }}" style="font-size: 16px;">Artist_Link</a></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-    </table>
+    <h2>1. choose the languages</h2>
+    <form method="post" action="/question1">
+      {% for i in langer%}
+        <input type="checkbox" id="vehicle1" name="vehicle1" value="{{ i }}">
+        <label for="vehicle1"> {{ i|capitalize }}</label><br><br>
+      {% endfor %}
+      <!-- <input type="checkbox" id="vehicle1" name="vehicle1" value="telugu">
+      <label for="vehicle1"> Telugu</label><br>
+      <input type="checkbox" id="vehicle2" name="vehicle1" value="hindi">
+      <label for="vehicle2"> Hindi</label><br>
+      <input type="checkbox" id="vehicle3" name="vehicle1" value="tamil">
+      <label for="vehicle1"> Tamil</label><br>
+      <input type="checkbox" id="vehicle4" name="vehicle1" value="english">
+      <label for="vehicle3"> English</label><br>
+      <input type="checkbox" id="vehicle4" name="vehicle1" value="kannada">
+      <label for="vehicle3"> Kannada</label><br>
+      <input type="checkbox" id="vehicle4" name="vehicle1" value="malayalam">
+      <label for="vehicle3"> Malayalam</label><br>
+      <input type="checkbox" id="vehicle4" name="vehicle1" value="french">
+      <label for="vehicle3"> French</label><br> -->
+      <br><br>
+      <input type="submit" value="NEXT">
+      <!-- <a class="button-59" type="submit">Next</a> -->
+    </form>
 </body>
 </html>
