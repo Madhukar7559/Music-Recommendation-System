@@ -134,7 +134,27 @@ a{
     <h1>ENJOY THE MUSIC </h1>
     <h1>LIST OF SONGS WE RECOMMEND FOR</h1>
     <table border="1">
-      {{ df_html|safe }}
+      <thead>
+        <tr>
+            <th>Song Name</th>
+            <th>Artist Name</th>
+            <th>Genres</th>
+            <th>Language</th>
+            <th colspan="2">Links</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for i in dicter %}
+        <tr>
+            <td>{{ i.track_name }}</td>
+            <td>{{ i.artist_name }}</td>
+            <td>{{ i.genres }}</td>
+            <td>{{ i.language }}</td>
+            <td><a href="{{ i.track_url }}" style="font-size: 16px;">Song_Link</a></td>
+            <td><a href="{{ i.artist_url }}" style="font-size: 16px;">Artist_Link</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
     </table>
 </body>
 </html>

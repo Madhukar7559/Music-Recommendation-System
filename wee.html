@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    var socket = io.connect('http://' + document.domain + ':' + location.port);
+    socket.on('connect', function() {console.log('Connected To server');socket.send("a");});
+    socket.on('up_data', function(data) {document.getElementById('oops').innerHTML = data; socket.send("a");});
+    socket.on('disconnect', function() {console.log('Disconnected from server');socket.send("a");});
+</script>
+<body>
+    <form method="post" action="/process">
+        <input type="text" placeholder="Paste your URL here" name="my_textbox">
+        <input type="submit" value="Now" >
+    </form>
+    <div id="oops"></div>
+</body>
+</html>
