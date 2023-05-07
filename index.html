@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Server-Sent Events Example</title>
+</head>
+<body>
+    <script>
+        var source = new EventSource('/sse');
+
+        source.onmessage = function(event) {
+            // Handle the received event data
+            console.log("Received event data:", event.data);
+        };
+    </script>
+</body>
+</html>
