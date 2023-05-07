@@ -4,8 +4,8 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.feature_extraction.text import TfidfVectorizer
 from textblob import TextBlob
 import re
-def content_filtering(playlistDF_test):
-    playlistDF = pd.read_csv("bigdata.csv")
+def content_filtering(playlistDF_test, langx):
+    playlistDF = pd.read_csv("D:/Project/python_trail/flask/actdata.csv")
     print(playlistDF.columns)
     playlistDF.head()
 
@@ -22,8 +22,7 @@ def content_filtering(playlistDF_test):
     print("Are all songs unique: ",len(pd.unique(songDF.artists_song))==len(songDF))
 
 
-    def select_cols(df):
-           return df[['artist_name','id','track_name','danceability', 'energy', 'key', 'loudness', 'mode','speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', "artist_pop", "genres", "track_pop"]]
+    def select_cols(df): return df#    return df[['artist_name','id','track_name','danceability', 'energy', 'key', 'loudness', 'mode','speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', "artist_pop", "genres", "track_pop", "language","track_url", "artist_url"]]
     songDF = select_cols(songDF)
     songDF.head()
 
@@ -174,15 +173,34 @@ def content_filtering(playlistDF_test):
 
     complete_feature_set_playlist_vector
 
+    def lang_sele(in_lang_choice,df):
+        cond_str_lang = "df['language'] == "
+        cond_str_genre = "df['genres'] == "
+        cond_str_artist = "df['artist_name'] == "
+        total_cond = [];
+        for i in in_lang_choice[0]:
+            x = cond_str_lang;
+            i = "'" + i + "'";
+            x += i
+            print(x)
+            total_cond.append(x)
 
+        apper = 0
+        for i in total_cond:
+            apper |= (eval(i));
+        return df[apper];
 
     def generate_playlist_recos(df, features, nonplaylist_features):
+        # df = lang_sele(langx,df)
+        # print(df["language"].shape);
         non_playlist_df = df[df['id'].isin(nonplaylist_features['id'].values)]
         non_playlist_df['sim'] = cosine_similarity(nonplaylist_features.drop('id', axis = 1).values, features.values.reshape(1, -1))[:,0]
-        non_playlist_df_top_40 = non_playlist_df.sort_values('sim',ascending = False).head(40)
+        non_playlist_df = lang_sele(langx,non_playlist_df)
+        non_playlist_df_top_40 = non_playlist_df.sort_values('sim',ascending = False).head(100)
         return non_playlist_df_top_40
 
 
 
     recommend = generate_playlist_recos(songDF, complete_feature_set_playlist_vector, complete_feature_set_nonplaylist)
-    return recommend["name"]
+    recommend.drop(recommend.columns[0], axis=1);
+    return recommend[["artist_name", "track_name", "genres", "language","track_url", "artist_url", "embed_code"]].head(10);

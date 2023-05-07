@@ -1,5 +1,4 @@
 import os
-import numpy as np
 from flask import Flask, render_template, request, redirect, flash
 import lyricsgenius;
 from gevent.pywsgi import WSGIServer
@@ -19,37 +18,6 @@ from waitress import serve
 import time;
 # Importing File Content_Filtering.py
 import Content_Filtering as cf;
-df = pd.read_csv("actdata.csv");
-
-def nsu(ans):
-    global df;
-    cond_str_lang = "df['language'] == "
-    cond_str_genre = "df['genres'] == "
-    cond_str_artist = "df['artist_name'] == "
-    total_cond = [];
-    for i in ans[0]:
-        x = cond_str_lang;
-        i = "'" + i + "'";
-        x += i
-        print(x)
-        total_cond.append(x)
-    for i in ans[1]:
-        x = cond_str_genre;
-        i = "'" + i + "'";
-        x += i
-        print(x)
-        total_cond.append(x)
-    for i in ans[2]:
-        x = cond_str_artist;
-        i = "'" + i + "'";
-        x += i
-        print(x)
-        total_cond.append(x);
-    apper = 0
-    for i in total_cond:
-        apper |= (eval(i));
-    return df[apper].sort_values("track_pop", ascending=False);
-
 def extractor(linkers):
     playlist_data = [];
     client_credentials_manager = SpotifyClientCredentials(client_id="8bf3b765c2da43c395a436cd0745db80", client_secret="7c70696eefde4544b020fc74f9096691");
@@ -71,7 +39,7 @@ def extractor(linkers):
         return sp.track(track)['external_urls']['spotify'];
     try:
         initial = []
-        for track in tracks[:5]:
+        for track in tracks[:50]:
             track_uri = track['track']['uri'];
             track_id = track_uri.split(':')[-1];
             track_data = {
@@ -116,80 +84,6 @@ def extractor(linkers):
     playlist_df = pd.DataFrame(playlist_data)
     # playlist_df.to_csv("testplist.csv");
     return playlist_df;
-
-script_dir = os.path.dirname(os.path.abspath(__file__))
-template_dir = os.path.abspath(script_dir)
-app = Flask(__name__, template_folder=template_dir, static_folder='static')
-@app.route('/')
-def index():
-    return render_template('search.html');
-labeler = ""
-@app.route('/process', methods=['POST'])
-def handle_form_submission():
-    global labeler;
-    labeler = request.form['my_textbox'];
-    return redirect('/process2')
-
-@app.route('/process2', methods=['POST', 'GET'])
-def langsd():
-    print("Hello")
-    global labeler;
-    lang_list = [];
-    if request.method == 'POST':
-        answer = request.form.getlist('vehicle1')
-        lang_list.append(answer)
-        text = extractor(labeler);
-        text = cf.content_filtering(text, lang_list);
-        text = text.to_dict(orient='records');
-        return render_template('tq.html', dicter=text);
-    return render_template('lang.html', langer = np.random.permutation(df["language"].unique()))
-
-
-
-answers = []
-@app.route('/set', methods=['GET', 'POST'])
-def home():
-    return redirect('/question1')
-
-@app.route('/question1', methods=['GET', 'POST'])
-def question1():
-    print("One Done {}".format(df["language"].unique()));
-    if request.method == 'POST':
-        answer = request.form.getlist('vehicle1')
-        answers.append(answer)
-        return redirect('/question2')
-    return render_template('q1.html', langer = df["language"].unique())
-
-@app.route('/question2', methods=['GET', 'POST'])
-def question2():
-    print("Two Done {}".format(df["genres"].unique()));
-    if request.method == 'POST':
-        answer = request.form.getlist('vehicle1')
-        answers.append(answer)
-        return redirect('/question3')
-    return render_template('q2.html')
-
-@app.route('/question3', methods=['GET', 'POST'])
-def question3():
-    print("Three Done {}".format(df["artist_name"].unique()));
-    if request.method == 'POST':
-        answer = request.form.getlist('vehicle1')
-        answers.append(answer)
-        return redirect('/result')
-    return render_template('q3.html')
-
-@app.route('/result')
-def result():
-    print(answers);
-    data_frame = nsu(answers);
-    data_frame = data_frame.to_dict(orient='records');
-    time.sleep(1);
-    return render_template('tq.html', dicter=data_frame);
-
-if __name__ == '__main__': 
-    app.run(debug=True)
-    # server = WSGIServer(("localhost", 121), app);
-    # server.serve_forever();
-# serve(app, host="0.0.0.0", port=8080)
-# labeler = pd.read_csv("D:/Project/python_trail/testplist.csv");
-# print(type(cf(labeler)))
+text = extractor("https://open.spotify.com/playlist/6hgMqj2cRyGKbC4tNLq3Rb?si=5dd919d9501e486f");
+text = cf.content_filtering(text);
+text.to_csv("del.csv")

@@ -126,12 +126,25 @@ a{
     <br>
     <br>
     <br>
-    <h1>ENJOY THE MUSIC </h1>
-    <h1>LIST OF SONGS WE RECOMMEND FOR</h1>
-    <div style="align-items: center;">
-    {% for i in dicter %}
-        <iframe style="border-radius:12px" src="{{ i.embed_code }}" width="30%" height="30%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    {% endfor %}
-    </div>
+    <br>
+    <h2>2. Your favourite Music</h2>
+    <form method="post" action="/question2">
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="POP">
+      <label for="vehicle1"> POP</label><br>
+      <input type="checkbox" id="vehicle2" name="vehicle1" value="Bass">
+      <label for="vehicle2"> Bass</label><br>
+      <input type="checkbox" id="vehicle3" name="vehicle3" value="Jazz">
+      <label for="vehicle3"> Jazz</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Hip hop">
+      <label for="vehicle1"> Hip hop</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Flok music">
+      <label for="vehicle1"> Flok music</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Classical music">
+      <label for="vehicle1"> Classical music</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Rock and Roll">
+      <label for="vehicle1"> Rock and Roll</label><br><br><br>
+      <input type="submit" value="NEXT">
+      <!-- <a class="button-59" type="submit">Next</a> -->
+    </form>
 </body>
 </html>

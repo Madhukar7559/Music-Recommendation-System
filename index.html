@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Example</title>
+</head>
+<body>
+    <h1>Form Example</h1>
+    <form method="post" action="/process">
+        <input type="text" name="my_textbox" placeholder="Enter text...">
+        <input type="submit" value="Submit">
+    </form>
+    <table border="1">
+        <!-- Use Jinja2 syntax to render the DataFrame HTML in the template -->
+        {{ df_html|safe }}
+    </table>
+</body>
+</html>

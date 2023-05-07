@@ -126,12 +126,27 @@ a{
     <br>
     <br>
     <br>
-    <h1>ENJOY THE MUSIC </h1>
-    <h1>LIST OF SONGS WE RECOMMEND FOR</h1>
-    <div style="align-items: center;">
-    {% for i in dicter %}
-        <iframe style="border-radius:12px" src="{{ i.embed_code }}" width="30%" height="30%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-    {% endfor %}
-    </div>
+    <br>
+    <h2>3.Your favourite singer</h2>
+    <form method="post" action="/question3">
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Arjith Singh">
+      <label for="vehicle1"> Arjith Singh</label><br>
+      <input type="checkbox" id="vehicle2" name="vehicle1" value="Shreya Goshal">
+      <label for="vehicle2"> Shreya Goshal</label><br>
+      <input type="checkbox" id="vehicle3" name="vehicle1" value="S P Bala Subramanyam">
+      <label for="vehicle3"> S P Bala Subramanyam</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Thaman s">
+      <label for="vehicle1"> Thaman s</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Arman Malik">
+      <label for="vehicle1"> Arman Malik</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Sid Sriram">
+      <label for="vehicle1"> Sid Sriram</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Usha Uthup">
+      <label for="vehicle1"> Usha Uthup</label><br>
+      <input type="checkbox" id="vehicle1" name="vehicle1" value="Shreya Ghoshal">
+      <label for="vehicle1"> Shreya Ghoshal</label><br><br><br>
+      <input type="submit" value="NEXT">
+      <!-- <a class="button-59" type="submit">Next</a> -->
+    </form>
 </body>
 </html>
