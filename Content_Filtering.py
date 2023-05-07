@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from textblob import TextBlob
 import re
 def content_filtering(playlistDF_test):
-    playlistDF = pd.read_csv("bigdata.csv")
+    playlistDF = pd.read_csv("D:/Project/python_trail/flask/actdata.csv")
     print(playlistDF.columns)
     playlistDF.head()
 
@@ -22,8 +22,7 @@ def content_filtering(playlistDF_test):
     print("Are all songs unique: ",len(pd.unique(songDF.artists_song))==len(songDF))
 
 
-    def select_cols(df):
-           return df[['artist_name','id','track_name','danceability', 'energy', 'key', 'loudness', 'mode','speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', "artist_pop", "genres", "track_pop"]]
+    def select_cols(df): return df#    return df[['artist_name','id','track_name','danceability', 'energy', 'key', 'loudness', 'mode','speechiness', 'acousticness', 'instrumentalness', 'liveness', 'valence', 'tempo', "artist_pop", "genres", "track_pop", "language","track_url", "artist_url"]]
     songDF = select_cols(songDF)
     songDF.head()
 
@@ -185,4 +184,5 @@ def content_filtering(playlistDF_test):
 
 
     recommend = generate_playlist_recos(songDF, complete_feature_set_playlist_vector, complete_feature_set_nonplaylist)
-    return recommend["name"]
+    recommend.drop(recommend.columns[0], axis=1);
+    return recommend[["artist_name", "track_name", "genres", "language","track_url", "artist_url", "embed_code"]].head(10);
