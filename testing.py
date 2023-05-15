@@ -17,6 +17,7 @@ from textblob import TextBlob
 import re
 from waitress import serve
 import time;
+from flask_socketio import SocketIO, emit;
 # Importing File Content_Filtering.py
 import Content_Filtering as cf;
 df = pd.read_csv("actdata.csv");
@@ -50,6 +51,14 @@ def nsu(ans):
         apper |= (eval(i));
     return df[apper].sort_values("track_pop", ascending=False);
 
+
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+template_dir = os.path.abspath(script_dir)
+app = Flask(__name__, template_folder=template_dir, static_folder='static')
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
+
 def extractor(linkers):
     playlist_data = [];
     client_credentials_manager = SpotifyClientCredentials(client_id="8bf3b765c2da43c395a436cd0745db80", client_secret="7c70696eefde4544b020fc74f9096691");
@@ -71,7 +80,7 @@ def extractor(linkers):
         return sp.track(track)['external_urls']['spotify'];
     try:
         initial = []
-        for track in tracks[:5]:
+        for track in tracks[:20]:
             track_uri = track['track']['uri'];
             track_id = track_uri.split(':')[-1];
             track_data = {
@@ -108,6 +117,7 @@ def extractor(linkers):
                 'track_pop':sp.track(track_uri)['popularity']
             }
             playlist_data.append(track_data)
+            socketio.emit("info",track_data);
             i += 1;
             print("No of Songs Extracted = ",i);
     except SpotifyException as e:
@@ -117,19 +127,21 @@ def extractor(linkers):
     # playlist_df.to_csv("testplist.csv");
     return playlist_df;
 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-template_dir = os.path.abspath(script_dir)
-app = Flask(__name__, template_folder=template_dir, static_folder='static')
+
+
+
 @app.route('/')
 def index():
     return render_template('search.html');
 labeler = ""
 @app.route('/process', methods=['POST'])
 def handle_form_submission():
-    global labeler;
-    labeler = request.form['my_textbox'];
-    return redirect('/process2')
-
+    if request.method == "POST":
+        global labeler;
+        labeler = request.form['my_textbox'];
+        return redirect('/process2');
+    return render_template('search.html');
+@socketio.on('connect')
 @app.route('/process2', methods=['POST', 'GET'])
 def langsd():
     print("Hello")
@@ -143,7 +155,6 @@ def langsd():
         text = text.to_dict(orient='records');
         return render_template('tq.html', dicter=text);
     return render_template('lang.html', langer = np.random.permutation(df["language"].unique()))
-
 
 
 answers = []
@@ -187,9 +198,10 @@ def result():
     return render_template('tq.html', dicter=data_frame);
 
 if __name__ == '__main__': 
-    app.run(debug=True)
+    # app.run(debug=True)
     # server = WSGIServer(("localhost", 121), app);
     # server.serve_forever();
-# serve(app, host="0.0.0.0", port=8080)
+    socketio.run(app, debug=True)
+    # serve(app, host="0.0.0.0", port=8080)
 # labeler = pd.read_csv("D:/Project/python_trail/testplist.csv");
 # print(type(cf(labeler)))
