@@ -150,19 +150,16 @@ a{
       <input type="submit" value="NEXT">
       <!-- <a class="button-59" type="submit">Next</a> -->
     </form>
-    <script>
+    <!-- <script>
       var socket = io.connect('http://' + document.domain + ':' + location.port);
       socket.on("info", function(data){
         console.log(data);
       });
-    </script>
-	<!-- <script>
+    </script> -->
+	<script>
 		const myForm = document.getElementById('myForm');
-		myForm.addEventListener('submit', (event) => {
-			alert("Please Wait ... Don't press anything");
-		});
-    // myForm.submit();
-	</script> -->
+		myForm.addEventListener('submit', (event) => {alert("Please Press ok and wait for a while ... Don't press anything");});
+	</script>
 </body>
 
 </html>

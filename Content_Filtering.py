@@ -5,7 +5,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from textblob import TextBlob
 import re
 def content_filtering(playlistDF_test, langx):
-    playlistDF = pd.read_csv("D:/Project/python_trail/flask/actdata.csv")
+    playlistDF = pd.read_csv("actdata.csv")
     print(playlistDF.columns)
     playlistDF.head()
 

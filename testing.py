@@ -52,13 +52,6 @@ def nsu(ans):
     return df[apper].sort_values("track_pop", ascending=False);
 
 
-
-script_dir = os.path.dirname(os.path.abspath(__file__))
-template_dir = os.path.abspath(script_dir)
-app = Flask(__name__, template_folder=template_dir, static_folder='static')
-app.config['SECRET_KEY'] = 'secret!'
-socketio = SocketIO(app)
-
 def extractor(linkers):
     playlist_data = [];
     client_credentials_manager = SpotifyClientCredentials(client_id="8bf3b765c2da43c395a436cd0745db80", client_secret="7c70696eefde4544b020fc74f9096691");
@@ -80,7 +73,7 @@ def extractor(linkers):
         return sp.track(track)['external_urls']['spotify'];
     try:
         initial = []
-        for track in tracks[:20]:
+        for track in tracks[:10]:
             track_uri = track['track']['uri'];
             track_id = track_uri.split(':')[-1];
             track_data = {
@@ -117,7 +110,7 @@ def extractor(linkers):
                 'track_pop':sp.track(track_uri)['popularity']
             }
             playlist_data.append(track_data)
-            socketio.emit("info",track_data);
+            # socketio.emit("info",track_data);
             i += 1;
             print("No of Songs Extracted = ",i);
     except SpotifyException as e:
@@ -128,6 +121,12 @@ def extractor(linkers):
     return playlist_df;
 
 
+
+script_dir = os.path.dirname(os.path.abspath(__file__))
+template_dir = os.path.abspath(script_dir)
+app = Flask(__name__, template_folder=template_dir, static_folder='static')
+app.config['SECRET_KEY'] = 'secret!'
+socketio = SocketIO(app)
 
 
 @app.route('/')
@@ -198,10 +197,10 @@ def result():
     return render_template('tq.html', dicter=data_frame);
 
 if __name__ == '__main__': 
-    # app.run(debug=True)
+    app.run(debug=True)
     # server = WSGIServer(("localhost", 121), app);
     # server.serve_forever();
-    socketio.run(app, debug=True)
+    # socketio.run(app, debug=True)
     # serve(app, host="0.0.0.0", port=8080)
 # labeler = pd.read_csv("D:/Project/python_trail/testplist.csv");
 # print(type(cf(labeler)))
