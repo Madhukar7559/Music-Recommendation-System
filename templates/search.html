@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.3/socket.io.js"></script>
+	<title>Centered Search Bar</title>
+	<style>
+        body{
+            background-image: url('https://images.pexels.com/photos/3784566/pexels-photo-3784566.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+		.container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 100vh;
+		}
+		.search-bar {
+			padding: 20px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			width: 70%;
+			max-width: 500px;
+			font-size: 18px;
+			box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+		}
+        h2,div,h3,h1,p,a{ text-align: center;
+    font-family: 'Cinzel', serif;
+font-family: 'Dancing Script', cursive;
+font-family: 'Heebo', sans-serif;
+font-family: 'Lato', sans-serif;
+font-family: 'Nanum Gothic', sans-serif;
+font-family: 'Noto Sans HK', sans-serif;
+font-family: 'Plus Jakarta Sans', sans-serif;
+font-family: 'Poppins', sans-serif;
+font-family: 'Questrial', sans-serif;
+font-size: 50px;
+}
+label{
+    font-family: 'Cinzel', serif;
+font-family: 'Dancing Script', cursive;
+font-family: 'Heebo', sans-serif;
+font-family: 'Lato', sans-serif;
+font-family: 'Nanum Gothic', sans-serif;
+font-family: 'Noto Sans HK', sans-serif;
+font-family: 'Plus Jakarta Sans', sans-serif;
+font-family: 'Poppins', sans-serif;
+font-family: 'Questrial', sans-serif;
+font-size: 30px;
+
+}
+input{
+    margin-left:30px ;
+    align-items: center;
+    margin-left: 30%;
+}
+
+
+/* CSS */
+.button-59 {
+  align-items: center;
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  display: inline-flex;
+  fill: #000;
+  font-family: Inter,sans-serif;
+  font-size: 30px;
+  text-align: center;
+  font-weight: 600;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: -.8px;
+  line-height: 24px;
+  min-width: 140px;
+  outline: 0;
+  padding: 0 17px;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-59:focus {
+  color: #171e29;
+}
+
+.button-59:hover {
+  border-color: #06f;
+  color: #06f;
+  fill: #06f;
+}
+
+.button-59:active {
+  border-color: #06f;
+  color: #06f;
+  fill: #06f;
+}
+
+@media (min-width: 768px) {
+  .button-59 {
+    min-width: 170px;
+  }
+}
+h2{
+    margin-bottom: 15px;
+}
+
+a{
+    margin-left: 30%; 
+}
+.button-58 {
+  /* float: right;
+  align-items: right; */
+  background-color: #fff;
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-sizing: border-box;
+  color: #000;
+  cursor: pointer;
+  display: inline-flex;
+  fill: #000;
+  font-family: Inter,sans-serif;
+  font-size: 30px;
+  text-align: center;
+  font-weight: 600;
+  height: 48px;
+  justify-content: center;
+  letter-spacing: -.8px;
+  line-height: 24px;
+  min-width: 140px;
+  outline: 0;
+  padding: 0 17px;
+  text-align: center;
+  text-decoration: none;
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-58:focus {
+  color: #171e29;
+}
+
+.button-58:hover {
+  border-color: #06f;
+  color: #06f;
+  fill: #06f;
+}
+
+.button-58:active {
+  border-color: #06f;
+  color: #06f;
+  fill: #06f;
+}
+
+@media (min-width: 768px) {
+  .button-58 {
+    min-width: 170px;
+  }
+}
+h2{
+    margin-bottom: 15px;
+}
+
+/* a{
+    margin-left: 30%;
+} */
+input.right {
+        float: right;
+      }
+      
+
+
+      .row {
+  display: flex;
+}
+/* @media only screen and (max-width: 600px) {  margin-left: 20rem;}  */
+/* Create two equal columns that sits next to each other */
+.column {
+  flex: 50%;
+  padding: 8px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+.clickhere{
+    /* float: right; */
+  /* align-items: right; */
+  margin-right: 0px;
+  margin-left: 70rem;
+}
+.Steps{
+  color:white;
+  font-size:30px ;
+  margin: 0px;
+  padding: 0px;
+  float: left;
+  text-align: start;
+}
+	</style>
+
+  <!-- <script>
+    var soc = io.connect('http://localhost:5000');
+    soc.on("server_event")
+  </script> -->
+
+
+</head>
+<body>
+  <a href="https://tusindfryd.github.io/share-liked-songs" target="_blank">
+  <input type="button" value="Click here" class="button-58 clickhere">
+</a>
+  <br>
+	<div class="container">
+
+    <div class="row">
+      <div class="column">
+        <form method="post" action="/process">
+          <input type="text" class="search-bar" placeholder="Paste your URL here" name="my_textbox">
+          <input type="submit" value="Next" class="button-59">
+        </form>
+      </div>
+      <div class="column" >
+       
+        <p class="Steps">* If you want to access your liked songs play list as a copyable link plz select on "click here" button<br>
+          
+          * it will open a new tab in the same window<br>
+          * login with your authorized spotify credentials and click on create link<br>
+          * copy and paste the link in the previous tab </p>
+      </div>
+    </div>
+		
+    <!-- <form method="get" action="/set">
+      <input type="submit" value="Next" class="button-59">
+    </form> -->
+	</div>
+</body>
+</html>
