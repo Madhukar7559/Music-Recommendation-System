@@ -126,15 +126,12 @@ a{
     <br>
     <br>
     <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <h1>ENJOY THE MUSIC </h1>
+    <h1>ENJOY YOUR {{ dicter[0].language|upper }} MUSIC </h1>
     <h1>LIST OF SONGS WE RECOMMEND FOR</h1>
-    <table border="1">
-      {{ df_html|safe }}
-    </table>
+    <div style="align-items: center;">
+    {% for i in dicter %}
+        <iframe style="border-radius:12px" src="{{ i.embed_code }}" width="30%" height="30%" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    {% endfor %}
+    </div>
 </body>
 </html>
