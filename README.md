@@ -1,4 +1,4 @@
-# SE_Project (In Progress)
+# Music Recommendation System Using Python Flask (In Progress)
 
 ### Resources and References
 
