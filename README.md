@@ -4,7 +4,7 @@
 1. Download This Repo or Open in codespaces. <br>
 2. Use this command in the terminal <code>pip install -r req.txt</code> <br>
 3. Use this command in the terminal <code>python index.py</code> <br>
-4. There will be a HTML link created in the terminal.
+4. Open the HTML Link given the terminal.
 
 ### Resources and References
 
