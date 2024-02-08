@@ -10,6 +10,7 @@ Flask==3.0.2
 Flask-SocketIO==5.3.6
 gevent==23.9.1
 greenlet==3.0.3
+gunicorn==21.2.0
 h11==0.14.0
 idna==3.6
 itsdangerous==2.1.2
@@ -20,6 +21,7 @@ lyricsgenius==3.0.1
 MarkupSafe==2.1.5
 nltk==3.8.1
 numpy==1.26.4
+packaging==23.2
 pandas==2.2.0
 pyarrow==15.0.0
 pycparser==2.21
