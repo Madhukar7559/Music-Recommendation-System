@@ -19,6 +19,7 @@ from waitress import serve
 import time;
 from flask_socketio import SocketIO, emit;
 import random;
+import logging, ngrok
 
 # Importing File Content_Filtering.py
 import Content_Filtering as cf;
@@ -153,7 +154,9 @@ def extractor(linkers):
     # playlist_df.to_csv("testplist.csv");
     return playlist_df;
 
-
+ngrok.set_auth_token('2l2lAgqD652k8t1F1nIMWlLmCy3_5raghxTwztfL7kuTS324X')
+logging.basicConfig(level=logging.INFO)
+listener = ngrok.werkzeug_develop()
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 template_dir = os.path.abspath(script_dir)
@@ -317,9 +320,15 @@ def result():
 
 if __name__ == '__main__': 
     app.run(debug=True)
+
     # server = WSGIServer(("localhost", 121), app);
     # server.serve_forever();
     # socketio.run(app, debug=True)
     # serve(app, host="0.0.0.0", port=8080)
 # labeler = pd.read_csv("D:/Project/python_trail/testplist.csv");
 # print(type(cf(labeler)))
+
+# logging.basicConfig(level=logging.INFO)
+# server = HTTPServer(("localhost", 0), HelloHandler)
+# ngrok.listen(server)
+# server.serve_forever()
